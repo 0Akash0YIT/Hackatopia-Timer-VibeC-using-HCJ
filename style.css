@@ -1,0 +1,514 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Press Start 2P", monospace;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #02030a;
+  color: white;
+}
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+.page {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 80% 30%, rgba(20, 80, 255, 0.2), transparent 30%),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(255, 0, 200, 0.12),
+      transparent 30%
+    ),
+    #02030a;
+}
+
+/* =========================
+   GRID BACKGROUND
+========================= */
+
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+  position: absolute;
+  top: 25px;
+  left: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.event-name {
+  font-size: 12px;
+  color: #19d9ff;
+  letter-spacing: 2px;
+}
+
+.header-logos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.yit-logo {
+  width: 100px;
+  height: 46px;
+  object-fit: contain;
+}
+
+.cybernauts {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+/* =========================
+   SLIDES
+========================= */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 100px 7%;
+}
+
+/* Visible slide */
+
+.slide.active {
+  display: flex;
+  animation: buildFromTop 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide:not(#welcome).active > * {
+  animation: contentReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.slide:not(#welcome).active > *:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.slide:not(#welcome).active > *:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.slide:not(#welcome).active > *:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+/* =========================
+   SLIDE ANIMATION
+========================= */
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contentReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buildFromTop {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* =========================
+   SMALL TEXT
+========================= */
+.small {
+  color: #FC1CA3;
+  font-size: 10px;
+  line-height: 2;
+  margin-bottom: 25px;
+}
+/* =========================
+   HEADINGS
+========================= */
+h1,
+h2 {
+  font-weight: 400;
+  line-height: 1.6;
+}
+/* Main heading */
+h1 {
+  font-size: clamp(28px, 5vw, 65px);
+  color: white;
+}
+/* Other headings */
+h2 {
+  font-size: clamp(25px, 5vw, 65px);
+  background: linear-gradient(90deg, #ffffff, #19d9ff, #5865ff, #ff27c7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.description {
+  margin-top: 25px;
+  color: #9ba5c3;
+  font-size: 10px;
+  line-height: 2.2;
+  text-transform: uppercase;
+}
+/* =========================
+   HERO
+========================= */
+
+#welcome {
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: left;
+  gap: 60px;
+  
+}
+#welcome.active {
+  display: flex;
+}
+.hero-text {
+  width: 55%;
+  z-index: 2;
+}
+.hero-logo {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-logo img {
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  object-fit: contain;
+  animation: float 4s ease-in-out infinite;
+}
+/* Logo floating animation */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+  margin-top: 40px;
+  padding: 18px 25px;
+  background: transparent;
+  border: 2px solid #19d9ff;
+  color: white;
+  font-size: 10px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all ease  0.5s;
+}
+button:hover {
+    background-image: url("https://img1.picmix.com/output/stamp/normal/3/0/2/7/1827203_0eb14.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+#countdown {
+  flex-direction: column;
+}
+#count {
+  margin-top: 20px;
+  font-size: clamp(120px, 25vw, 300px);
+  line-height: 1;
+  background: linear-gradient(135deg, #ffffff, #19d9ff, #ff27c7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================
+   DOMAINS
+========================= */
+
+#domains {
+  gap: 18px;
+}
+
+#domains .small,
+#domains h2 {
+  flex: 0 0 auto;
+}
+
+.domains {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  width: min(1100px, 100%);
+  margin-top: 20px;
+}
+
+.domains > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.domains img {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(25, 217, 255, 0.25));
+}
+
+/* =========================
+   TIMER
+========================= */
+
+#timer {
+  flex-direction: column;
+  background: #000000;
+}
+
+#timerOnly {
+  flex-direction: column;
+  background: #000000;
+}
+
+#timeUp {
+  flex-direction: column;
+  background: #000000;
+}
+
+.time-up-title {
+  margin: 0;
+  color: #ff2020;
+  font-size: clamp(32px, 8vw, 100px);
+  text-shadow: 0 0 24px rgba(255, 32, 32, 0.45);
+}
+
+.live-title {
+  margin: 0;
+  background: linear-gradient(90deg, #19d9ff, #fc1ca3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(24px, 5vw, 60px);
+}
+
+.live-message {
+  margin-top: 14px;
+  color: #ffffff;
+  font-size: clamp(10px, 1.5vw, 16px);
+  letter-spacing: 2px;
+}
+
+#timer .timer {
+  margin-top: 40px;
+}
+
+#timerOnly .timer {
+  margin-top: 0;
+}
+
+body:has(#timerOnly.active) header,
+body:has(#timerOnly.active) footer,
+body:has(#timeUp.active) header,
+body:has(#timeUp.active) footer {
+  display: none;
+}
+
+.timer {
+  display: flex;
+  gap: 25px;
+  margin-top: 45px;
+}
+.timer div {
+  min-width: 130px;
+  padding: 20px;
+  border: 1px solid rgba(25, 217, 255, 0.3);
+}
+.timer span {
+  display: block;
+  font-size: 30px;
+  color: #19d9ff;
+}
+.timer small {
+  display: block;
+  margin-top: 15px;
+  color: #78829f;
+  font-size: 7px;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 16px;
+  margin-top: 35px;
+}
+
+.timer-controls button {
+  margin-top: 0;
+  padding: 14px 18px;
+  font-size: 8px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #566078;
+  font-size: 7px;
+  z-index: 10;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+  #welcome {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+  }
+  .hero-text {
+    width: 100%;
+  }
+  .hero-logo {
+    width: 100%;
+  }
+  .hero-logo img {
+    width: 60%;
+  }
+  .timer {
+    gap: 8px;
+  }
+  .timer div {
+    min-width: 90px;
+    padding: 15px 5px;
+  }
+  .timer span {
+    font-size: 18px;
+  }
+  .domains {
+    gap: 10px;
+  }
+  .domains > div {
+    font-size: 7px;
+  }
+}
+
+
+
+
+@media (max-width: 500px) {
+  .event-name {
+    font-size: 8px;
+  }
+  .yit-logo {
+    width: 28px;
+    height: 42px;
+  }
+  .cybernauts {
+    width: 45px;
+    height: 45px;
+  }
+  .small {
+    font-size: 7px;
+  }
+  .description {
+    font-size: 7px;
+  }
+  .timer div {
+    min-width: 75px;
+  }
+  .timer span {
+    font-size: 14px;
+  }
+  .timer small {
+    font-size: 5px;
+  }
+  .domains {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(360px, 100%);
+    gap: 8px 12px;
+  }
+  .domains img {
+    max-width: 150px;
+  }
+}
