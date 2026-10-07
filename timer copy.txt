@@ -1,0 +1,348 @@
+Reset:
+localStorage.removeItem("hackatopiaStartTime");
+localStorage.removeItem("hackatopiaPausedTime");
+localStorage.removeItem("hackatopiaTimerState");
+localStorage.removeItem("hackatopiaAutoStarted");
+localStorage.removeItem("hackatopiaLiveStartedAt");
+localStorage.removeItem("hackatopiaTimerPhase");
+
+location.reload();
+
+
+Last 20seconds:
+const TEST_REMAINING_TIME = 20 * 1000; // 20 seconds
+
+localStorage.setItem("hackatopiaTimerState", "running");
+
+localStorage.setItem(
+  "hackatopiaStartTime",
+  Date.now() - (TOTAL_TIME - TEST_REMAINING_TIME)
+);
+
+localStorage.setItem("hackatopiaAutoStarted", "true");
+localStorage.setItem("hackatopiaLiveStartedAt", Date.now() - 10 * 1000);
+localStorage.setItem("hackatopiaTimerPhase", "timerOnly");
+
+location.reload();
+
+
+
+
+
+You are working on an existing hackathon timer webpage built with HTML, CSS, and JavaScript.
+
+## OBJECTIVE
+Add a GitHub activity notification system to the existing hackathon timer.
+
+The hackathon has **32 team repositories** hosted on a GitHub department account.
+
+Every **30 minutes**, the system must check all 32 public GitHub repositories and identify which repositories have received one or more commits during the **previous 30 minutes**.
+
+If recent commits are found, display a small, clean notification/activity panel on the existing hackathon timer page.
+
+## CRITICAL RULE: DO NOT BREAK EXISTING CODE
+This is an enhancement to an already-working website.
+
+DO NOT:
+
+- Rewrite the existing HTML unnecessarily
+- Rewrite the existing CSS
+- Replace the existing timer
+- Change the existing timer logic
+- Remove existing animations
+- Remove existing buttons/features
+- Change the existing page layout unnecessarily
+- Replace existing JavaScript functionality
+- Introduce a framework
+- Convert the project to React/Vue/etc.
+- Add a backend
+- Add a database
+- Add paid services
+Use the existing HTML/CSS/JS architecture.
+
+Only add the minimum code required for the GitHub activity feature.
+
+Before making changes, inspect the existing code carefully and understand how it works.
+
+## GITHUB REPOSITORIES
+The repositories will be provided in this format:
+
+Team 01 | [https://github.com/DEPARTMENT/team-01](https://github.com/DEPARTMENT/team-01)
+Team 02 | [https://github.com/DEPARTMENT/team-02](https://github.com/DEPARTMENT/team-02)
+Team 03 | [https://github.com/DEPARTMENT/team-03](https://github.com/DEPARTMENT/team-03)
+...
+Team 32 | [https://github.com/DEPARTMENT/team-32](https://github.com/DEPARTMENT/team-32)
+
+All repositories are PUBLIC.
+
+Create a clearly separated configuration section in JavaScript containing the 32 repositories.
+
+Example:
+
+const HACKATHON_REPOSITORIES = [
+{
+team: "Team 01",
+url: "[https://github.com/](https://github.com/)..."
+},
+{
+team: "Team 02",
+url: "[https://github.com/](https://github.com/)..."
+}
+];
+
+Do not scatter repository URLs throughout the code.
+
+## GITHUB API
+Use the public GitHub REST API.
+
+For each repository, check its recent commits.
+
+The system should determine whether commits occurred during the previous 30 minutes based on the commit timestamp.
+
+Do NOT simply display the repository's latest commit regardless of its age.
+
+For example:
+
+Current time:
+15:00
+
+Check window:
+14:30 - 15:00
+
+Commit at 14:45:
+YES → include
+
+Commit at 14:10:
+NO → ignore
+
+## CHECK INTERVAL
+Run the GitHub check once every 30 minutes.
+
+Do not continuously poll GitHub.
+
+Do not check every few seconds.
+
+Use a reasonable initial check when the page loads, then schedule subsequent checks every 30 minutes.
+
+Avoid unnecessary GitHub API requests.
+
+## NOTIFICATION BEHAVIOR
+If one or more repositories have commits during the previous 30 minutes, show a small notification/activity panel.
+
+Example:
+
+🔔 GitHub Activity
+
+Team 07
+Committed 8 minutes ago
+"Added authentication"
+
+Team 12
+Committed 21 minutes ago
+"Fixed API integration"
+
+If multiple commits were made by the same team during the 30-minute window, do not create excessive duplicate notifications.
+
+Group activity by team where appropriate.
+
+If no repository has a recent commit:
+
+Do not show an empty or alarming notification.
+
+The existing timer should continue functioning normally.
+
+## NOTIFICATION CONTENT
+Where available, display:
+
+- Team name
+- Commit message
+- Approximate time since commit
+- GitHub username/author
+- Repository name
+Example:
+
+Team 07
+@participant123
+"Implemented login validation"
+12 minutes ago
+
+Make the GitHub repository or commit clickable if practical.
+
+Open GitHub links in a new tab.
+
+## UI REQUIREMENTS
+The notification must be visually consistent with the existing hackathon page.
+
+Do NOT redesign the page.
+
+Inspect the existing CSS and reuse its:
+
+- colors
+- typography
+- spacing
+- borders
+- shadows
+- animations
+- design language
+Create only the additional CSS classes required for the GitHub notification.
+
+The notification should be small and unobtrusive because the countdown timer remains the primary element.
+
+## ERROR HANDLING
+The GitHub checker must fail gracefully.
+
+If:
+
+- GitHub API temporarily fails
+- One repository cannot be accessed
+- A repository returns an error
+- Network connectivity fails
+Do NOT break the timer or the rest of the webpage.
+
+A failed repository check should not prevent the other repositories from being checked.
+
+Log useful errors to the console during development.
+
+Do not expose sensitive information.
+
+## RATE LIMIT / PERFORMANCE
+There are 32 repositories.
+
+Do not create unnecessary API requests.
+
+Use the minimum number of requests necessary.
+
+Handle repositories individually so one failure does not stop the entire check.
+
+Do not use a GitHub personal access token in frontend JavaScript.
+
+Since all repositories are public, do not introduce authentication unless technically required.
+
+## TIME HANDLING
+Use the browser's current time and GitHub's commit timestamp correctly.
+
+Be careful about:
+
+- UTC timestamps returned by GitHub
+- local browser time
+- commits exactly around the 30-minute boundary
+- future timestamps caused by clock differences
+Do not manually assume IST inside the GitHub timestamp comparison. Use proper JavaScript Date handling.
+
+## DUPLICATE NOTIFICATIONS
+Do not repeatedly display the same commit every time the check runs.
+
+Maintain a small client-side record of already-seen commit SHA values.
+
+Example:
+
+const seenCommits = new Set();
+
+If a commit SHA has already been displayed, do not display it again.
+
+Keep this lightweight. No database is required.
+
+## IMPORTANT LIMITATION
+This is a frontend-only implementation.
+
+Do not add:
+
+- Node.js backend
+- Express
+- database
+- Supabase
+- Firebase
+- webhook server
+- paid API
+- GitHub token
+unless the existing implementation proves that one is technically unavoidable.
+
+The repositories are public specifically so the frontend can use the public GitHub API.
+
+## CODE QUALITY
+Keep the GitHub functionality isolated.
+
+Prefer functions such as:
+
+checkGitHubActivity()
+checkRepository()
+processRecentCommits()
+showGitHubNotification()
+formatCommitTime()
+
+Do not mix GitHub logic deeply into the existing timer logic.
+
+The existing timer should remain independent.
+
+If the GitHub feature fails, the timer must continue working.
+
+## IMPLEMENTATION PROCESS
+Before editing:
+
+1. Inspect the complete existing HTML.
+2. Inspect the complete existing CSS.
+3. Inspect the complete existing JavaScript.
+4. Identify the safest location for the new GitHub activity component.
+5. Identify existing styles/animations that can be reused.
+Then implement the feature with minimal modifications.
+
+After implementation:
+
+1. Explain exactly what files were changed.
+2. Show only the newly added/modified sections if possible.
+3. Explain where the 32 repository URLs must be inserted.
+4. Explain how the 30-minute checking works.
+5. Explain how to test the system.
+6. Do not claim GitHub activity works until it has actually been tested.
+
+## TESTING REQUIREMENT
+Provide a simple testing method.
+
+For development, temporarily allow the checking interval to be configured with a variable such as:
+
+const GITHUB_CHECK_INTERVAL = 30 * 60 * 1000;
+
+During testing, I should be able to temporarily change it to something like:
+
+const GITHUB_CHECK_INTERVAL = 60 * 1000;
+
+so that I can test without waiting 30 minutes.
+
+Make it obvious that this is only for testing and should be changed back to 30 minutes for the actual hackathon.
+
+## FINAL EXPECTED RESULT
+The final system should behave like this:
+
+Participant pushes code
+↓
+Commit appears in their public GitHub repository
+↓
+Within the next 30-minute check
+↓
+Frontend checks all 32 repositories
+↓
+Finds commits from the previous 30 minutes
+↓
+Shows GitHub activity notification
+↓
+Existing hackathon timer continues normally
+
+Example final notification:
+
+┌──────────────────────────────┐
+│ 🔔 GitHub Activity │
+│ │
+│ Team 07 │
+│ "Added authentication" │
+│ @participant123 │
+│ 8 minutes ago │
+│ │
+│ Team 19 │
+│ "Fixed API endpoint" │
+│ @developer19 │
+│ 23 minutes ago │
+└──────────────────────────────┘
+
+The goal is NOT to build a sophisticated GitHub monitoring platform.
+
+The goal is a **free, lightweight, reliable GitHub activity indicator integrated into the existing hackathon timer without disturbing anything else.**
