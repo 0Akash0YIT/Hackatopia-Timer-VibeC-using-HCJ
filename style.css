@@ -375,7 +375,34 @@ button:hover {
 }
 
 #timerOnly .timer {
+  width: 100%;
+  max-width: 1200px;
+  justify-content: center;
+  gap: clamp(18px, 4vw, 60px);
   margin-top: 0;
+}
+
+#timerOnly .timer span {
+  font-size: clamp(56px, 10vw, 150px);
+  line-height: 1;
+  font-weight: 400;
+  white-space: nowrap;
+  background: linear-gradient(90deg, #19d9ff, #fc1ca3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#timerOnly .timer div {
+  min-width: 0;
+  flex: 1 1 0;
+  min-height: clamp(150px, 20vw, 270px);
+  padding: clamp(26px, 4vw, 44px) clamp(18px, 3vw, 35px);
+  overflow: visible;
+}
+
+#timerOnly .timer small {
+  font-size: clamp(7px, 1vw, 12px);
 }
 
 body:has(#timerOnly.active) header,
@@ -465,6 +492,9 @@ footer {
   .timer span {
     font-size: 18px;
   }
+  #timerOnly .timer span {
+    font-size: clamp(42px, 10vw, 82px);
+  }
   .domains {
     gap: 10px;
   }
@@ -499,6 +529,19 @@ footer {
   }
   .timer span {
     font-size: 14px;
+  }
+  #timerOnly .timer span {
+    font-size: clamp(32px, 11vw, 58px);
+  }
+  #timerOnly .timer {
+    width: 96vw;
+    gap: 6px;
+  }
+  #timerOnly .timer div {
+    min-width: 0;
+    flex: 1;
+    min-height: 120px;
+    padding: 20px 4px;
   }
   .timer small {
     font-size: 5px;

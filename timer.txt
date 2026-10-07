@@ -1,0 +1,26 @@
+Reset:
+localStorage.removeItem("hackatopiaStartTime");
+localStorage.removeItem("hackatopiaPausedTime");
+localStorage.removeItem("hackatopiaTimerState");
+localStorage.removeItem("hackatopiaAutoStarted");
+localStorage.removeItem("hackatopiaLiveStartedAt");
+localStorage.removeItem("hackatopiaTimerPhase");
+
+location.reload();
+
+
+Last 20seconds:
+const TEST_REMAINING_TIME = 20 * 1000; // 20 seconds
+
+localStorage.setItem("hackatopiaTimerState", "running");
+
+localStorage.setItem(
+  "hackatopiaStartTime",
+  Date.now() - (TOTAL_TIME - TEST_REMAINING_TIME)
+);
+
+localStorage.setItem("hackatopiaAutoStarted", "true");
+localStorage.setItem("hackatopiaLiveStartedAt", Date.now() - 10 * 1000);
+localStorage.setItem("hackatopiaTimerPhase", "timerOnly");
+
+location.reload();
